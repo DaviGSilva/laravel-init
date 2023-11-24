@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    image: php:8.2-fpm-alpine
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:8000"
+    command: php artisan serve --host 0.0.0.0
+
+  composer:
+    image: composer:2.6
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: composer install
+
+  node:
+    image: node:21-alpine
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: npm install
